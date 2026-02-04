@@ -1,0 +1,9 @@
+{
+  "command.selective_vanish.svanish.allow": "%1$s can now see %2$s in vanish!",
+  "command.selective_vanish.svanish.revoke": "%1$s can't see %2$s in vanish anymore!",
+  "command.selective_vanish.svanish.clear": "Now no one can see %1$s in vanish!",
+  "command.selective_vanish.svanish.get": "> Players who can see %1$s in vanish:",
+  "command.selective_vanish.svanish.get.empty": "No players can see %1$s in vanish",
+
+  "misc.selective_vanish.buildViewersList.and": " and "
+}

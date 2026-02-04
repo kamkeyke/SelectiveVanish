@@ -1,0 +1,19 @@
+{
+  "required": true,
+  "minVersion": "0.8",
+  "priority": 1000,
+  "package": "net.kamkeyke.selective_vanish.mixin",
+  "compatibilityLevel": "JAVA_17",
+  "refmap": "selective_vanish.refmap.json",
+  "mixins": [
+    "VanishUtilMixin"
+  ],
+  "client": [
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  },
+  "overwrites": {
+    "requireAnnotations": true
+  }
+}

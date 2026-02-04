@@ -1,0 +1,41 @@
+# idea
+out
+*.ipr
+*.iws
+*.iml
+.idea
+!.idea/scopes
+
+.gradle
+**/build/
+build/
+!src/**/build/
+.gradle/8.8/checksums/checksums.lock
+/.gradle
+
+# Ignore Gradle GUI config
+gradle-app.setting
+
+# Files from Forge MDK
+forge*changelog.txt
+
+# Avoid ignoring Gradle wrapper jar file (.jar files are usually ignored)
+!gradle-wrapper.jar
+
+# Avoid ignore Gradle wrappper properties
+!gradle-wrapper.properties
+
+# Cache of project
+.gradletasknamecache
+
+# Eclipse Gradle plugin generated files
+# Eclipse Core
+.project
+# JDT-specific (Eclipse Java Development Tools)
+.classpath
+
+# other
+eclipse
+run
+run-data
+runs
