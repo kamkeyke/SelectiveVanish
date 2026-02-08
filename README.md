@@ -5,12 +5,20 @@ SVanish is a simples add-on for VanishMod. It introduces selective visibility co
 ### 🚀 Why use SVanish?
 While the original VanishMod has a similar feature, it relies on Minecraft's /team system and is disabled by default. SVanish eliminates this necessity by using its own SavedData system on the server. This means you can manage visibility permissions independently without messing with your server's teams or scoreboard setup.
 
-
 ### ✨ Features
 - **Independence:** No /team configuration required.
 - **Persistence:** All data is saved directly in the server's world data.
 - **Bulk Management:** Use the "group" syntax to manage multiple players at once easily.
 - **Lore friendly:** Perfect for roleplaying with your friends or using on an SMP server.
+---
+
+### 🔗 Compatibility
+- Requires [Vanishmod](https://www.curseforge.com/minecraft/mc-mods/vanishmod)
+- Designed for Forge
+- Safe to use in SMPs and roleplay-focused servers
+- Should work fine with any other mods
+
+---
 
 ### 💻 Commands & Syntax
 | Command                                    | Description                                                         |
