@@ -124,38 +124,4 @@ public class PlayerListArgument implements ArgumentType<List<String>> {
 
         return subBuilder.buildFuture();
     }
-
-    public static class Info implements ArgumentTypeInfo<PlayerListArgument, Info.Template> {
-        @Override
-        public void serializeToNetwork(Template template, FriendlyByteBuf buffer) {
-            // nenhum dado extra
-        }
-
-        @Override
-        public Template deserializeFromNetwork(FriendlyByteBuf buffer) {
-            return new Template();
-        }
-
-        @Override
-        public void serializeToJson(Template template, JsonObject json) {
-            // nenhum dado extra
-        }
-
-        @Override
-        public Template unpack(PlayerListArgument argument) {
-            return new Template();
-        }
-
-        public class Template implements ArgumentTypeInfo.Template<PlayerListArgument> {
-            @Override
-            public PlayerListArgument instantiate(CommandBuildContext ctx) {
-                return PlayerListArgument.players();
-            }
-
-            @Override
-            public ArgumentTypeInfo<PlayerListArgument, ?> type() {
-                return Info.this;
-            }
-        }
-    }
 }

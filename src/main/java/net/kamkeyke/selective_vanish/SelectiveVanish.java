@@ -16,11 +16,18 @@ public class SelectiveVanish
 
     public SelectiveVanish(FMLJavaModLoadingContext context)
     {
-        LOGGER.info("Greetings from the raccoon!");
+        raccoonGreetings();
         IEventBus modEventBus = context.getModEventBus();
 
         ArgumentTypes.register(modEventBus);
 
         MinecraftForge.EVENT_BUS.register(this);
+    }
+
+    private void raccoonGreetings(){
+        if(System.getProperty("raccoon.greeted") == null){
+            LOGGER.info("Greetings from the raccoon!");
+            System.setProperty("raccoon.greeted", "true");
+        }
     }
 }
