@@ -1,6 +1,8 @@
 # 🕵️ SVanish (Selective Vanish)
 
-SVanish is a simples add-on for VanishMod. It introduces selective visibility control, allowing you to choose exactly who can see players while they are vanished.
+SVanish is a simple add-on for VanishMod. It introduces selective visibility control, allowing you to choose exactly who can see players while they are vanished.
+> ‼️ Server-side mod:
+SVanish only needs to be installed on the server to function. Clients are not required to install it.
 
 ### 🚀 Why use SVanish?
 While the original VanishMod has a similar feature, it relies on Minecraft's /team system and is disabled by default. SVanish eliminates this necessity by using its own SavedData system on the server. This means you can manage visibility permissions independently without messing with your server's teams or scoreboard setup.
@@ -14,6 +16,7 @@ While the original VanishMod has a similar feature, it relies on Minecraft's /te
 
 ### 🔗 Compatibility
 - Requires [Vanishmod](https://www.curseforge.com/minecraft/mc-mods/vanishmod)
+- Requires [RaccoonCore](https://github.com/kamkeyke/RaccoonCore) _(must be installed on both server and client)_
 - Designed for Forge
 - Safe to use in SMPs and roleplay-focused servers
 - Should work fine with any other mods

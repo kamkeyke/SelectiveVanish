@@ -4,7 +4,7 @@ import com.mojang.brigadier.CommandDispatcher;
 import com.mojang.brigadier.builder.LiteralArgumentBuilder;
 import com.mojang.brigadier.context.CommandContext;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
-import net.kamkeyke.selective_vanish.command.argumenttype.PlayerListArgument;
+import net.kamkeyke.raccooncore.command.argumenttype.PlayerListArgument;
 import net.kamkeyke.selective_vanish.saveddata.VanishVisibilityData;
 import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.commands.Commands;

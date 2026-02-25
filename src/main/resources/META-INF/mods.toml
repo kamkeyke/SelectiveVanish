@@ -8,7 +8,7 @@ version="${mod_version}"
 displayName="${mod_name}"
 logoFile="svanish_icon.png"
 authors="${mod_authors}"
-displayTest="MATCH_VERSION"
+displayTest="IGNORE_ALL_VERSION"
 description='''${mod_description}'''
 
 ## Dependencies
@@ -27,8 +27,15 @@ ordering="NONE"
 side="BOTH"
 
 [[dependencies.${mod_id}]]
+modId="raccooncore"
+mandatory=true
+versionRange="${raccooncore_version_range}"
+ordering="AFTER"
+side="BOTH"
+
+[[dependencies.${mod_id}]]
 modId="vmod"
 mandatory=true
 versionRange="${vanishmod_version_range}"
 ordering="NONE"
-side="BOTH"
+side="SERVER"
