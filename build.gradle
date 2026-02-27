@@ -155,7 +155,7 @@ dependencies {
     // compileOnly fg.deobf("me.djtheredstoner:DevAuth-forge-latest:1.2.1")
 
     // RaccoonCore
-    implementation fg.deobf('com.github.kamkeyke:RaccoonCore:mc1.20.1-v1.0.4')
+    implementation fg.deobf("com.github.kamkeyke:RaccoonCore:${raccooncore_version}")
 
     // VanishMod
     implementation fg.deobf("curse.maven:vanishmod-423535:7222182")
@@ -209,6 +209,7 @@ tasks.named('jar', Jar).configure {
     finalizedBy 'reobfJar'
 }
 
+tasks.named('publish').configure {dependsOn 'reobfJar'}
 tasks.withType(PublishToMavenLocal).configureEach { dependsOn 'reobfJar' }
 tasks.withType(PublishToMavenRepository).configureEach { dependsOn 'reobfJar' }
 

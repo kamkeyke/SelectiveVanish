@@ -15,7 +15,6 @@ import net.minecraft.world.entity.player.Player;
 import redstonedubstep.mods.vanishmod.VanishUtil;
 import redstonedubstep.mods.vanishmod.VanishingHandler;
 
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
@@ -82,7 +81,8 @@ public class SelectiveVanishCommand {
 
     private static int allow(CommandContext<CommandSourceStack> context, boolean isGroup) throws CommandSyntaxException {
         String argName = isGroup ? "viewersGroup" : "viewers";
-        Collection<ServerPlayer> viewers = getPlayers(context, argName, isGroup);
+        Collection<ServerPlayer> viewers = isGroup ? PlayerListArgument.getPlayerList(context, "viewers") : EntityArgument.getPlayers(context, argName);
+
         ServerPlayer vanishedPlayer = EntityArgument.getPlayer(context, "vanishedPlayer");
 
         VanishVisibilityData visibilityData = VanishVisibilityData.get(vanishedPlayer.server);
@@ -96,7 +96,7 @@ public class SelectiveVanishCommand {
 
     private static int deny(CommandContext<CommandSourceStack> context, boolean isGroup) throws CommandSyntaxException {
         String argName = isGroup ? "viewersGroup" : "viewers";
-        Collection<ServerPlayer> viewers = getPlayers(context, argName, isGroup);
+        Collection<ServerPlayer> viewers = isGroup ? PlayerListArgument.getPlayerList(context, "viewers") : EntityArgument.getPlayers(context, argName);
         ServerPlayer vanishedPlayer = EntityArgument.getPlayer(context, "vanishedPlayer");
 
         VanishVisibilityData visibilityData = VanishVisibilityData.get(vanishedPlayer.server);
@@ -110,7 +110,7 @@ public class SelectiveVanishCommand {
 
     private static int clear(CommandContext<CommandSourceStack> context, boolean isGroup) throws CommandSyntaxException {
         String argName = isGroup ? "vanishedGroup" : "vanishedPlayers";
-        Collection<ServerPlayer> vanishedPlayers = getPlayers(context, argName, isGroup);
+        Collection<ServerPlayer> vanishedPlayers = isGroup ? PlayerListArgument.getPlayerList(context, "viewers") : EntityArgument.getPlayers(context, argName);
         if (vanishedPlayers.isEmpty()) return 0;
 
         VanishVisibilityData visibilityData = VanishVisibilityData.get(context.getSource().getServer());
@@ -161,19 +161,6 @@ public class SelectiveVanishCommand {
         }
 
         return sb.toString();
-    }
-
-    private static Collection<ServerPlayer> getPlayers(CommandContext<CommandSourceStack> context, String argName, boolean isGroup) throws CommandSyntaxException{
-        if (isGroup) {
-            List<String> names = PlayerListArgument.getPlayerList(context, argName);
-            List<ServerPlayer> players = new ArrayList<>();
-            for (String n : names) {
-                ServerPlayer p = context.getSource().getServer().getPlayerList().getPlayerByName(n);
-                if (p != null) players.add(p);
-            }
-            return players;
-        }
-        return EntityArgument.getPlayers(context, argName);
     }
 
     private static void updateVanish(ServerPlayer serverPlayer){
