@@ -20,9 +20,4 @@ public class CommonEvents {
             SelectiveVanishCommand.register(dispatcher);
         }
     }
-
-    @Mod.EventBusSubscriber(modid = SelectiveVanish.MODID, bus = Mod.EventBusSubscriber.Bus.MOD)
-    public static class ModEvents {
-
-    }
 }

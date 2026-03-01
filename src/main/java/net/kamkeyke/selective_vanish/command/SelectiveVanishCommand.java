@@ -5,13 +5,13 @@ import com.mojang.brigadier.builder.LiteralArgumentBuilder;
 import com.mojang.brigadier.context.CommandContext;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import net.kamkeyke.raccooncore.command.argumenttype.PlayerListArgument;
+import net.kamkeyke.raccooncore.util.TextUtils;
 import net.kamkeyke.selective_vanish.saveddata.VanishVisibilityData;
 import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.commands.Commands;
 import net.minecraft.commands.arguments.EntityArgument;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.world.entity.player.Player;
 import redstonedubstep.mods.vanishmod.VanishUtil;
 import redstonedubstep.mods.vanishmod.VanishingHandler;
 
@@ -81,7 +81,7 @@ public class SelectiveVanishCommand {
 
     private static int allow(CommandContext<CommandSourceStack> context, boolean isGroup) throws CommandSyntaxException {
         String argName = isGroup ? "viewersGroup" : "viewers";
-        Collection<ServerPlayer> viewers = isGroup ? PlayerListArgument.getPlayerList(context, "viewers") : EntityArgument.getPlayers(context, argName);
+        Collection<ServerPlayer> viewers = isGroup ? PlayerListArgument.getPlayerList(context, argName) : EntityArgument.getPlayers(context, argName);
 
         ServerPlayer vanishedPlayer = EntityArgument.getPlayer(context, "vanishedPlayer");
 
@@ -90,13 +90,13 @@ public class SelectiveVanishCommand {
 
         updateVanish(vanishedPlayer);
 
-        context.getSource().sendSuccess(() -> Component.translatable("command.selective_vanish.svanish.allow", buildViewersList(viewers), vanishedPlayer.getDisplayName()), true);
+        context.getSource().sendSuccess(() -> Component.translatable("command.selective_vanish.svanish.allow", TextUtils.buildPlayerList(viewers), vanishedPlayer.getDisplayName()), true);
         return 1;
     }
 
     private static int deny(CommandContext<CommandSourceStack> context, boolean isGroup) throws CommandSyntaxException {
         String argName = isGroup ? "viewersGroup" : "viewers";
-        Collection<ServerPlayer> viewers = isGroup ? PlayerListArgument.getPlayerList(context, "viewers") : EntityArgument.getPlayers(context, argName);
+        Collection<ServerPlayer> viewers = isGroup ? PlayerListArgument.getPlayerList(context, argName) : EntityArgument.getPlayers(context, argName);
         ServerPlayer vanishedPlayer = EntityArgument.getPlayer(context, "vanishedPlayer");
 
         VanishVisibilityData visibilityData = VanishVisibilityData.get(vanishedPlayer.server);
@@ -104,13 +104,13 @@ public class SelectiveVanishCommand {
 
         updateVanish(vanishedPlayer);
 
-        context.getSource().sendSuccess(() -> Component.translatable("command.selective_vanish.svanish.revoke", buildViewersList(viewers), vanishedPlayer.getDisplayName()), true);
+        context.getSource().sendSuccess(() -> Component.translatable("command.selective_vanish.svanish.revoke", TextUtils.buildPlayerList(viewers), vanishedPlayer.getDisplayName()), true);
         return 1;
     }
 
     private static int clear(CommandContext<CommandSourceStack> context, boolean isGroup) throws CommandSyntaxException {
         String argName = isGroup ? "vanishedGroup" : "vanishedPlayers";
-        Collection<ServerPlayer> vanishedPlayers = isGroup ? PlayerListArgument.getPlayerList(context, "viewers") : EntityArgument.getPlayers(context, argName);
+        Collection<ServerPlayer> vanishedPlayers = isGroup ? PlayerListArgument.getPlayerList(context, argName) : EntityArgument.getPlayers(context, argName);
         if (vanishedPlayers.isEmpty()) return 0;
 
         VanishVisibilityData visibilityData = VanishVisibilityData.get(context.getSource().getServer());
@@ -120,7 +120,7 @@ public class SelectiveVanishCommand {
             updateVanish(serverPlayer);
         }
 
-        context.getSource().sendSuccess(() -> Component.translatable("command.selective_vanish.svanish.clear", buildViewersList(vanishedPlayers)), true);
+        context.getSource().sendSuccess(() -> Component.translatable("command.selective_vanish.svanish.clear", TextUtils.buildPlayerList(vanishedPlayers)), true);
         return 1;
     }
 
@@ -133,34 +133,10 @@ public class SelectiveVanishCommand {
             context.getSource().sendSuccess(() -> Component.translatable("command.selective_vanish.svanish.get.empty", vanishedPlayer.getDisplayName()), false);
         } else {
             context.getSource().sendSuccess(() -> Component.translatable("command.selective_vanish.svanish.get", vanishedPlayer.getDisplayName()), false);
-            context.getSource().sendSuccess(() -> Component.literal(buildViewersList(playersWhoCanSee)), false);
+            context.getSource().sendSuccess(() -> TextUtils.buildPlayerList(playersWhoCanSee), false);
         }
 
         return 1;
-    }
-
-    private static String buildViewersList(Collection<? extends Player> players){
-        List<String> names = players.stream().map(player -> player.getDisplayName().getString()).toList();
-
-        int size = names.size();
-
-        if(size == 1) return names.get(0);
-        if(size == 2) return names.get(0) + Component.translatable("misc.selective_vanish.buildViewersList.and").getString() + names.get(1);
-
-        StringBuilder sb = new StringBuilder();
-
-        for(int i = 0; i < size; i++){
-            if(i > 0) {
-                if(i == size - 1){
-                    sb.append(Component.translatable("misc.selective_vanish.buildViewersList.and").getString());
-                } else {
-                    sb.append(", ");
-                }
-            }
-            sb.append(names.get(i));
-        }
-
-        return sb.toString();
     }
 
     private static void updateVanish(ServerPlayer serverPlayer){
