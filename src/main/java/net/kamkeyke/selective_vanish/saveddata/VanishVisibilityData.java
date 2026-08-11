@@ -59,51 +59,36 @@ public class VanishVisibilityData extends SavedData {
 
     // ------------------------ API --------------------------
 
-    public boolean canSee(ServerPlayer viewer, ServerPlayer vanishedPlayer){
+    public boolean canSee(UUID viewerUUID, UUID vanishedPlayerUUID){
         return VISIBILITY_OVERRIDES
-                .getOrDefault(vanishedPlayer.getUUID(), Set.of())
-                .contains(viewer.getUUID());
+                .getOrDefault(vanishedPlayerUUID, Set.of())
+                .contains(viewerUUID);
     }
 
-    public void allow(ServerPlayer viewer, ServerPlayer vanishedPlayer){
+    public void allow(UUID viewerUUID, UUID vanishedPlayerUUID){
         VISIBILITY_OVERRIDES
-                .computeIfAbsent(vanishedPlayer.getUUID(), k -> new HashSet<>())
-                .add(viewer.getUUID());
+                .computeIfAbsent(vanishedPlayerUUID, k -> new HashSet<>())
+                .add(viewerUUID);
         setDirty();
     }
 
-    public void deny(ServerPlayer viewer, ServerPlayer vanishedPlayer){
-        Set<UUID> set = VISIBILITY_OVERRIDES.get(vanishedPlayer.getUUID());
+    public void deny(UUID viewerUUID, UUID vanishedPlayerUUID){
+        Set<UUID> set = VISIBILITY_OVERRIDES.get(vanishedPlayerUUID);
         if(set != null) {
-            set.remove(viewer.getUUID());
+            set.remove(viewerUUID);
             if(set.isEmpty()){
-                VISIBILITY_OVERRIDES.remove(vanishedPlayer.getUUID());
+                VISIBILITY_OVERRIDES.remove(vanishedPlayerUUID);
             }
         }
         setDirty();
     }
 
-    public void clear(ServerPlayer vanishedPlayer){
-        VISIBILITY_OVERRIDES.remove(vanishedPlayer.getUUID());
+    public void clear(UUID vanishedPlayerUUID){
+        VISIBILITY_OVERRIDES.remove(vanishedPlayerUUID);
         setDirty();
     }
 
-    public List<ServerPlayer> getPlayersWhoCanSee(ServerPlayer vanishedPlayer){
-        Set<UUID> viewers = getViewers(vanishedPlayer.getUUID());
-
-        List<ServerPlayer> result = new ArrayList<>();
-
-        for(UUID viewerUUID : viewers){
-            ServerPlayer viewer = vanishedPlayer.server.getPlayerList().getPlayer(viewerUUID);
-            if(viewer != null){
-                result.add(viewer);
-            }
-        }
-
-        return result;
-    }
-
-    private Set<UUID> getViewers(UUID vanishedPlayer){
+    public Set<UUID> getPlayersWhoCanSee(UUID vanishedPlayer){
         return VISIBILITY_OVERRIDES.getOrDefault(vanishedPlayer, Set.of());
     }
 }

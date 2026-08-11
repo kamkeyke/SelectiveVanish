@@ -64,13 +64,6 @@ minecraft {
     runs {
         // applies to all the run configs below
         configureEach {
-            workingDirectory project.file('run')
-
-            jvmArgs += [
-                    "-Ddevauth.enabled=true",
-                    "-Ddevauth.configDir=G:\\.devauth"
-            ]
-
             // Recommended logging data for a userdev environment
             // The markers can be added/remove as needed separated by commas.
             // "SCAN": For mods scan.
@@ -91,11 +84,30 @@ minecraft {
         }
 
         client {
+            workingDirectory project.file('run')
+
+            jvmArgs += [
+                    "-Ddevauth.enabled=true",
+                    "-Ddevauth.configDir=G:\\.devauth"
+            ]
+
             // Comma-separated list of namespaces to load gametests from. Empty = all namespaces.
             property 'forge.enabledGameTestNamespaces', mod_id
+
+            mods {
+                "${mod_id}" {
+                    source sourceSets.main
+                }
+            }
+        }
+
+        client2 {
+            parent minecraft.runs.client // Herda as configs do client original
+            workingDirectory project.file('run/client2')
         }
 
         server {
+            workingDirectory project.file('run/server')
             property 'forge.enabledGameTestNamespaces', mod_id
         }
 
@@ -125,12 +137,13 @@ mixin {
 }
 
 repositories {
+    mavenLocal()
     maven {
         url = "https://cursemaven.com"
     }
-    // maven { // Autenticar a conta do minecraft no ambiente Dev
-    //     url = "https://pkgs.dev.azure.com/djtheredstoner/DevAuth/_packaging/public/maven/v1"
-    // }
+    //  maven { // Autenticar a conta do minecraft no ambiente Dev
+    //      url = "https://pkgs.dev.azure.com/djtheredstoner/DevAuth/_packaging/public/maven/v1"
+    //  }
     maven {
         url = 'https://jitpack.io'
     }
@@ -152,16 +165,17 @@ dependencies {
     implementation "org.spongepowered:mixin:0.8.5"
 
     // DevAuth
-    // compileOnly fg.deobf("me.djtheredstoner:DevAuth-forge-latest:1.2.1")
+    //  runtimeOnly fg.deobf("me.djtheredstoner:DevAuth-forge-latest:1.2.1")
 
     // RaccoonCore
     implementation fg.deobf("com.github.kamkeyke:RaccoonCore:${raccooncore_version}")
+    //  implementation fg.deobf("net.kamkeyke.raccooncore:raccooncore-1.20.1-forge:${raccooncore_version_local}")
 
     // VanishMod
     implementation fg.deobf("curse.maven:vanishmod-423535:7222182")
 
     // In-game Account Switcher
-    // runtimeOnly fg.deobf("curse.maven:in-game-account-switcher-232676:5457030")
+    //  runtimeOnly fg.deobf("curse.maven:in-game-account-switcher-232676:5457030")
 }
 
 // This block of code expands all declared replace properties in the specified resource targets.

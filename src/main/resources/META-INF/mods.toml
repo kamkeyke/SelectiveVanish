@@ -10,6 +10,7 @@ logoFile="svanish_icon.png"
 authors="${mod_authors}"
 displayTest="IGNORE_ALL_VERSION"
 description='''${mod_description}'''
+issueTrackerURL="https://github.com/kamkeyke/SelectiveVanish/issues"
 
 ## Dependencies
 [[dependencies.${mod_id}]]

@@ -21,7 +21,7 @@ public class VanishUtilMixin {
     private static void onPlayerAllowedToSeeOther(Entity subject, Entity otherPlayer, boolean isSubjectVanished, boolean isOtherVanished, CallbackInfoReturnable<Boolean> cir){
         if(subject instanceof ServerPlayer viewer && otherPlayer instanceof ServerPlayer vanishedPlayer){
             VanishVisibilityData visibilityData = VanishVisibilityData.get(vanishedPlayer.server);
-            if(visibilityData.canSee(viewer, vanishedPlayer)){
+            if(visibilityData.canSee(viewer.getUUID(), vanishedPlayer.getUUID())){
                 cir.setReturnValue(true);
             }
         }

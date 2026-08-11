@@ -1,9 +1,12 @@
 {
   "command.selective_vanish.svanish.allow": "%1$s can now see %2$s in vanish!",
-  "command.selective_vanish.svanish.revoke": "%1$s can't see %2$s in vanish anymore!",
+  "command.selective_vanish.svanish.allow.allowed_already": "%1$s can already see %2$s in vanish!",
+  "command.selective_vanish.svanish.deny": "%1$s can't see %2$s in vanish anymore!",
+  "command.selective_vanish.svanish.deny.denied_already": "%1$s can't see %2$s in vanish already!",
   "command.selective_vanish.svanish.clear": "Now no one can see %1$s in vanish!",
+  "command.selective_vanish.svanish.clear.clear_already": "No one can see %1$s in vanish already!",
   "command.selective_vanish.svanish.get": "> Players who can see %1$s in vanish:",
-  "command.selective_vanish.svanish.get.empty": "No players can see %1$s in vanish",
-
-  "misc.selective_vanish.buildViewersList.and": " and "
+  "command.selective_vanish.svanish.empty": "No players can see %1$s in vanish",
+  "command.selective_vanish.svanish.notfound.viewers": "No viewer was found",
+  "command.selective_vanish.svanish.notfound.target": "No target was found"
 }
